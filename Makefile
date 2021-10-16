@@ -8,12 +8,11 @@ BINDIR = bin
 SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
 OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
 
-
-$(OBJECTS): $(OBJDIR)/%.o : $(SOURCEDIR)/%.cpp
+$(OBJDIR)/%.o : $(SOURCEDIR)/%.cpp
 	$(CC) -c -o $@ $<
 
-$(BINDIR)/$(EXECUTABLE): $(OBJ)
-	$(CC) -o bin/$@ $^
+$(BINDIR)/$(EXECUTABLE): $(OBJECTS)
+	$(CC) -o $@ $^
 
 clean:
-	rm -f bin/* build/*
+	rm -f $(OBJDIR)/* $(BINDIR)/*
