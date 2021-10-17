@@ -1,5 +1,7 @@
 #include "simulation.h"
 #include <vector>
+#include <iostream>
+#include <thread>
 
 Simulation::Simulation()
 {
@@ -10,11 +12,22 @@ Simulation::Simulation()
 void Simulation::start()
 {
 	Simulation::simulation_state = SimulationState::Running;
+	Simulation::simulation_thread = std::thread(&Simulation::simThread, this);
 }
 
 void Simulation::stop()
 {
 	Simulation::simulation_state = SimulationState::Stopped;
+	simulation_thread.join();
+}
+
+void Simulation::simThread()
+{
+	while(simulation_state == SimulationState::Running)
+	{
+
+	}
+
 }
 
 void Simulation::setSpeed(float speed)

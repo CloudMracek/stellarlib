@@ -1,5 +1,6 @@
-#include "entity.h"
 #include <vector>
+#include <thread>
+#include "entity.h"
 
 enum class SimulationState {Running, Stopped, Failed};
 
@@ -24,6 +25,8 @@ class Simulation
 		vector<Entity> simulation_entities;
 		float simulation_speed;
 		double delta_time;
+		void simThread();
+		std::thread simulation_thread;
 		SimulationState simulation_state;
 
 
