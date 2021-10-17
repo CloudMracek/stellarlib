@@ -1,6 +1,7 @@
 #include <vector>
 #include <thread>
 #include "entity.h"
+#include <chrono>
 
 enum class SimulationState {Running, Stopped, Failed};
 
@@ -11,8 +12,8 @@ class Simulation
 		void start();
 		void stop();
 
-		void setSpeed(float speed);
-		float getSpeed();
+		void setSpeed(int speed);
+		int getSpeed();
 
 		void addEntity(Entity entity);
 //		void removeEntity(Entity entity);
@@ -23,7 +24,8 @@ class Simulation
 
 	private:
 		vector<Entity> simulation_entities;
-		float simulation_speed;
+		std::chrono::milliseconds simulation_speed;
+		long timescale;
 		double delta_time;
 		void simThread();
 		std::thread simulation_thread;

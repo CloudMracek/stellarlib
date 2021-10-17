@@ -32,9 +32,7 @@ int main()
 	cout << entity1.getName() << ": " << entity1.getMass() << "kg." << endl;
 	cout << entity2.getName() << ": " << entity2.getMass() << "kg." << endl;
 
-	cout << "Pre start" << endl;
 	simulation.start();
-	cout << "After start" << endl;
 	sleep(1);
 	simulation.stop();
 

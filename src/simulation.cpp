@@ -2,10 +2,13 @@
 #include <vector>
 #include <iostream>
 #include <thread>
+#include <time.h>
+#include <chrono>
 
 Simulation::Simulation()
 {
 	//simulation_entities = {};
+	simulation_speed = std::chrono::milliseconds(16);
 	Simulation::simulation_state = SimulationState::Stopped;
 }
 
@@ -23,21 +26,29 @@ void Simulation::stop()
 
 void Simulation::simThread()
 {
+
 	while(simulation_state == SimulationState::Running)
 	{
+		auto start = std::chrono::system_clock::now();
+		// Stuff
+		auto end = std::chrono::system_clock::now();
 
+		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+		std::this_thread::sleep_for(simulation_speed - elapsed);
 	}
 
 }
 
-void Simulation::setSpeed(float speed)
+
+
+void Simulation::setSpeed(int fps)
 {
-	simulation_speed = speed;
+	simulation_speed = std::chrono::milliseconds((1/fps)*1000);
 }
 
-float Simulation::getSpeed()
+int Simulation::getSpeed()
 {
-	return simulation_speed;
+	return (int) simulation_speed.count();
 }
 
 void Simulation::addEntity(Entity entity)
