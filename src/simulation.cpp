@@ -30,7 +30,11 @@ void Simulation::simThread()
 	while(simulation_state == SimulationState::Running)
 	{
 		auto start = std::chrono::system_clock::now();
-		// Stuff
+		for (int i = 0; i<simulation_entities.size(); i++)
+		{
+            Entity& e = simulation_entities[i];
+			e.tick(simulation_entities, getDeltaTime());
+		}
 		auto end = std::chrono::system_clock::now();
 
 		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
@@ -51,9 +55,9 @@ int Simulation::getSpeed()
 	return (int) simulation_speed.count();
 }
 
-void Simulation::addEntity(Entity entity)
+void Simulation::addEntity(Entity& entity)
 {
-	simulation_entities.push_back(entity);
+	simulation_entities.push_back(std::reference_wrapper<Entity>{entity});
 }
 
 /* Maybe later
@@ -78,12 +82,12 @@ void Simulation::clearEntities()
 	//simulation_entities = {};
 }
 
-vector<Entity> Simulation::getEntities()
+vector<std::reference_wrapper<Entity>> Simulation::getEntities()
 {
 	return simulation_entities;
 }
 
 double Simulation::getDeltaTime()
 {
-	return delta_time;
+	return simulation_speed.count() / 1000.0;
 }

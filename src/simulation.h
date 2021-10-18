@@ -2,6 +2,7 @@
 #include <thread>
 #include "entity.h"
 #include <chrono>
+#include <functional>
 
 enum class SimulationState {Running, Stopped, Failed};
 
@@ -15,15 +16,15 @@ class Simulation
 		void setSpeed(int speed);
 		int getSpeed();
 
-		void addEntity(Entity entity);
+		void addEntity(Entity& entity);
 //		void removeEntity(Entity entity);
 		void clearEntities();
-		vector<Entity> getEntities();
+        vector<std::reference_wrapper<Entity>> getEntities();
 
 		double getDeltaTime();
 
 	private:
-		vector<Entity> simulation_entities;
+		vector<std::reference_wrapper<Entity>> simulation_entities;
 		std::chrono::milliseconds simulation_speed;
 		long timescale;
 		double delta_time;
