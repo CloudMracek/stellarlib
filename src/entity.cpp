@@ -18,13 +18,33 @@ Entity::Entity(string name, double mass, vector<double> position)
 	z = position[2];
 
     entity_velocity = vector<double>{0,0,0};
+    entity_acceleration = vector<double>{0,0,0};
 }
 
 void Entity::tick(vector<std::reference_wrapper<Entity>> e, double delta)
 {
-    x += entity_velocity[0]*delta;
-	y += entity_velocity[1]*delta;
-	z += entity_velocity[2]*delta;
+    for(Entity& e : e)
+    {
+
+        if(e.getName() == getName()) continue;
+        vector<double> newAccel =  compAccel(e);
+        entity_acceleration[0] += newAccel[0]/entity_mass;
+        entity_acceleration[1] += newAccel[1]/entity_mass;
+        entity_acceleration[2] += newAccel[2]/entity_mass;
+    }
+
+    entity_velocity[0] += entity_acceleration[0]*delta;
+    entity_velocity[1] += entity_acceleration[1]*delta;
+    entity_velocity[2] += entity_acceleration[2]*delta;
+
+    x += entity_velocity[0];
+	y += entity_velocity[1];
+	z += entity_velocity[2];
+
+    std::cout << getName() << " " << entity_velocity[0] << " " << entity_velocity[1] << " " << entity_velocity[2] << std::endl;
+    entity_acceleration = vector<double>{0,0,0};
+
+
 }
 
 vector<double> Entity::getPosition()
@@ -85,12 +105,12 @@ vector<double> Entity::getAcceleration()
 	return entity_acceleration;
 }
 
-vector<double> Entity::compAccel(Entity e1, Entity e2)
+vector<double> Entity::compAccel(Entity e2)
 {
-    double massA = e1.getMass();
+    double massA = getMass();
     double massB = e2.getMass();
 
-    vector<double> posA = e1.getPosition();
+    vector<double> posA = getPosition();
     vector<double> posB = e2.getPosition();
 
     double deltaX = posA[0] - posB[0];
@@ -102,6 +122,8 @@ vector<double> Entity::compAccel(Entity e1, Entity e2)
     double ForceX = ((G*massA*massB)/(pow(realDistance, 3)))*deltaX;
     double ForceY = ((G*massA*massB)/(pow(realDistance, 3)))*deltaY;
     double ForceZ = ((G*massA*massB)/(pow(realDistance, 3)))*deltaZ;
+
+    //std::cout << ForceX << " " << ForceY << " " << ForceZ<< std::endl;
 
     return vector<double>{ForceX, ForceY, ForceZ};
 }

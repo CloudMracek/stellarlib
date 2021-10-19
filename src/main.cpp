@@ -11,8 +11,8 @@ int main()
 {
 	Simulation simulation;
 
-	vector<double> pos1{0,0,0};
-	vector<double> pos2{500,800, 1000};
+	vector<double> pos1{-50,800,1000};
+	vector<double> pos2{50,800, 1000};
 
 	Entity entity1("Earth", 5.972*pow(10,24), pos1);
 	Entity entity2("Moon", 7.348*pow(10,22), pos2);
@@ -20,7 +20,7 @@ int main()
     entity1.setVelocity(vector<double>{150, 0, 0});
 
 	simulation.addEntity(entity1);
-	//simulation.addEntity(entity2);
+	simulation.addEntity(entity2);
 
 
 	vector<double> velocity = vector<double>{150.3,0, 0};

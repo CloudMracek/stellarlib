@@ -39,7 +39,6 @@ void Simulation::simThread()
 
 		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 		std::this_thread::sleep_for(simulation_speed - elapsed);
-        std::cout << elapsed.count() << std::endl;
 	}
 
 }
