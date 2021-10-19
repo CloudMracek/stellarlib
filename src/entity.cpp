@@ -3,6 +3,8 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <cmath>
+#define G 6.67428*pow(10, -11)
 
 Entity::Entity(string name, double mass, vector<double> position)
 {
@@ -81,4 +83,25 @@ void Entity::setAcceleration(vector<double> acceleration)
 vector<double> Entity::getAcceleration()
 {
 	return entity_acceleration;
+}
+
+vector<double> Entity::compAccel(Entity e1, Entity e2)
+{
+    double massA = e1.getMass();
+    double massB = e2.getMass();
+
+    vector<double> posA = e1.getPosition();
+    vector<double> posB = e2.getPosition();
+
+    double deltaX = posA[0] - posB[0];
+    double deltaY = posA[1] - posB[1];
+    double deltaZ = posA[2] - posB[2];
+
+    double realDistance = sqrt(pow(posA[0] - posB[0],2) + pow(posA[1] - posB[1],2) + pow(posA[2] - posB[2],2));
+
+    double ForceX = ((G*massA*massB)/(pow(realDistance, 3)))*deltaX;
+    double ForceY = ((G*massA*massB)/(pow(realDistance, 3)))*deltaY;
+    double ForceZ = ((G*massA*massB)/(pow(realDistance, 3)))*deltaZ;
+
+    return vector<double>{ForceX, ForceY, ForceZ};
 }

@@ -34,6 +34,7 @@ class Entity
 		double x;
 		double y;
 		double z;
+        vector<double> compAccel(Entity e1, Entity e2);
 
 };
 
