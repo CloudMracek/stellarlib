@@ -4,14 +4,14 @@ A simple C++ library which ~~simulates~~ hopefully will simulate astrodynamics.
 This is my personal science project in which I try to connect my love for programming with my love for science.
 It's still nowhere near done or usable though I highly don't recommend anyone to use this library unless you know what you're doing (I certainly don't)
 
-At the moment it can do theese things:
+At the moment it can do these things:
 - Create Entites in a sensible object
-- Assign theese entities to a Simulation instance
+- Assign these entities to a Simulation instance
 - Apply velocities to their positions consistently based on the simulation speed and it's delta time.
 
 This project is my first attempt to do something usable with C++ and it most likely violates every unwritten rule of C++ programming.
 If that is the case I would love you to correct my mistakes in the Issues section for me to correct them. Please keep in mind that I
-don't merge pull requests. I take this thing as my personal project to learn C++. Sorry to dissapoint...
+don't merge pull requests. I take this thing as my personal project to learn C++. Sorry to disappoint...
 
 Yes I'm aware that it's not really a library yet since it creates a binary.
 
