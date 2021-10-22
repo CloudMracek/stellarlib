@@ -49,8 +49,8 @@ make
 ```
 
 ## To-do
-- Newton's law of universal gravitation
-- Newton's 3 laws of motion
+- ~~Newton's law of universal gravitation~~ (Implemented but broken atm.)
+- Newton's 3 laws of motion (Kind of implemented - not all of them)
 - The above will hopefully make Kepler's astrodynamics work
 
 ## Thanks
